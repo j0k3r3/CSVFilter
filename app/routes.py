@@ -19,6 +19,7 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    flash(f"Route: {app.config['UPLOAD_FOLDER']}")
     if 'file' not in request.files:
         flash('No file part')
         return redirect(request.url)
@@ -28,6 +29,8 @@ def upload_file():
         return redirect(request.url)
     if file and allowed_file(file.filename):
         filename = file.filename
+        
+        
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         flash('File successfully uploaded')
@@ -45,13 +48,19 @@ def filter_data(filename):
     if request.method == 'POST':
         column = request.form.get('column')
         value = request.form.get('value')
+        column2 = request.form.get('column2')
+        value2 = request.form.get('value2')
         order = request.form.get('order')
         
         if column and value and order:
             
             # Perform data filtering and ordering (example with pandas DataFrame)
             # Assuming 'data' is your DataFrame or data source
-            filtered_df = df[df[column] == value].sort_values(by=order)
+            filtered_df = df[df[column].astype(str).str.contains(value, na=False)]
+
+            #Second filter
+            if column2 and value2:
+                filtered_df = filtered_df[filtered_df[column2].astype(str).str.contains(value2, na=False)].sort_values(by=order)
 
             # Convert filtered_data to HTML table format for rendering
             tables_html = [filtered_df.to_html(classes='table table-striped')]
@@ -66,9 +75,13 @@ def download_file(filename):
     df = pd.read_csv(filepath)
     column = request.form.get('column')
     value = request.form.get('value')
+    column2 = request.form.get('column2')
+    value2 = request.form.get('value2')
     order = request.form.get('order')
     
-    filtered_df = df[df[column] == value].sort_values(by=order)
+    filtered_df = df[df[column].astype(str).str.contains(value, na=False)]
+    if column2 and value2:
+        filtered_df = filtered_df[filtered_df[column2].astype(str).str.contains(value2, na=False)].sort_values(by=order)
 
 
     output = BytesIO()
