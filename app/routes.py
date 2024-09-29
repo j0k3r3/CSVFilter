@@ -19,25 +19,23 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    flash(f"Route: {app.config['UPLOAD_FOLDER']}")
+    
     if 'file' not in request.files:
         flash('No file part')
-        return redirect(request.url)
+        return redirect('/')
     file = request.files['file']
     if file.filename == '':
         flash('No selected file')
-        return redirect(request.url)
+        return redirect('/')
     if file and allowed_file(file.filename):
         filename = file.filename
-        
-        
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         flash('File successfully uploaded')
         return redirect(url_for('filter_data', filename=filename))
     else:
         flash('Invalid file format')
-        return redirect(request.url)
+        return redirect('/')
 
 @app.route('/filter/<filename>', methods=['GET', 'POST'])
 def filter_data(filename):

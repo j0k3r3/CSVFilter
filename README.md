@@ -24,7 +24,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/rmgarcia1789/CSVFilter.git
+   git clone https://github.com/l364cyx/CSVFilter.git
    cd csvfilter
    docker build . -t csvfilter
    docker run --rm -d -p 5001:8000 csvfilter

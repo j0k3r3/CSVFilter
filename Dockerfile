@@ -26,4 +26,4 @@ RUN chown -R www:www /server/uploads
 USER www
 
 # Run the application
-CMD ["gunicorn", "-w", "1", "--reload", "--bind", "0.0.0.0:8000", "run:app"]
+CMD ["gunicorn", "-w", "1", "--reload", "--bind", "0.0.0.0:5000", "run:app"]
