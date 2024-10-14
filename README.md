@@ -1,6 +1,6 @@
 # CSVFilter
 
-CSVFilte is a web application that allows users to filter and sort data from CSV files easily. With a simple and intuitive interface, you can quickly find the data you need and download the filtered results.
+CSVFilter is a web application that allows users to filter and sort data from CSV files easily. With a simple and intuitive interface, you can quickly find the data you need and download the filtered results.
 
 ## Features
 
@@ -17,7 +17,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 - Python 3.x
 - Flask
-- pandas
+- Pandas
 
 ### Installation
 
@@ -25,7 +25,13 @@ Follow these instructions to get a copy of the project up and running on your lo
 
    ```sh
    git clone https://github.com/l364cyx/CSVFilter.git
+   ```
+2. **Build:**
+   ```sh
    cd csvfilter
    docker build . -t csvfilter
-   docker run --rm -d -p 5001:8000 csvfilter
+   ```
+3. **Deploy:**
+   ```sh
+   docker run --rm -d -p 5000:5000 csvfilter
    ```
